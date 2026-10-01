@@ -21,6 +21,7 @@ export const Wrapper = styled.div<{ $variant: TSampleComponentVariant; $spacing:
 	color: ${({ theme }) => theme.color.text};
 	padding: ${({ theme, $spacing }) => theme.spacing[$spacing]};
 	position: relative;
+	font-size: ${({ theme }) => theme.typography.size.body.m};
 	
 	&:after {
 		color: #fff;

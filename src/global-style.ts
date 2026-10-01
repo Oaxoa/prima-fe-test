@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 /**
  * Applies the design system's base font to everything.
@@ -8,6 +8,7 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
 	html {
 		font-family: ${({ theme }) => theme.typography.fontFamily.base};
+		line-height: 150%;
 		/* Inter ships an optical-size axis; let the browser track font-size. */
 		font-optical-sizing: auto;
 		/* Inter has real weights and italics — never synthesise them. */

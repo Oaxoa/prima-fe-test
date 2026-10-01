@@ -8,9 +8,15 @@
  * covers the swap period.
  */
 export const typography = {
-	fontFamily: {
-		base: "'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-	},
+  fontFamily: {
+    base: "'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+  },
+  size: {
+    body: {
+      s: "12px",
+      m: "14px",
+    },
+  },
 } as const;
 
 export type TFontFamilyKey = keyof typeof typography.fontFamily;
