@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { Wrapper } from "./badge.styled.tsx";
 import type { IBadgeProps } from "./types.ts";
 

@@ -6,5 +6,5 @@
  * scoped by unicode-range, so browsers only fetch the subsets a page actually
  * renders.
  */
-import '@fontsource-variable/inter/opsz.css';
-import '@fontsource-variable/inter/opsz-italic.css';
+import "@fontsource-variable/inter/opsz.css";
+import "@fontsource-variable/inter/opsz-italic.css";

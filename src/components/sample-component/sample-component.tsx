@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 import { Wrapper } from "./sample-component.styled";
 import type { ISampleComponentProps } from "./types";
