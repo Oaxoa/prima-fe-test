@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
+import type { TSurfaceKey } from "../../tokens/color";
 import type { TBadgeVariant } from "./types";
 
-const variantsMap: Record<TBadgeVariant, string> = {
+const variantsMap: Record<TBadgeVariant, TSurfaceKey> = {
   neutral: "high",
   positive: "positive",
   negative: "negative",

@@ -8,3 +8,4 @@ export const color = {
 } as const;
 
 export type TColorKey = keyof typeof color;
+export type TSurfaceKey = keyof typeof color.surface;
