@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
 import { ThemeProvider } from 'styled-components';
+import '../src/fonts';
+import { GlobalStyle } from '../src/global-style';
 import { theme } from '../src/theme';
 
 const preview: Preview = {
@@ -14,6 +16,7 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Story />
       </ThemeProvider>
     ),
