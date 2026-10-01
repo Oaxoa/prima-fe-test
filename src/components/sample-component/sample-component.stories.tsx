@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import styled from "styled-components";
 
 import { SampleComponent } from "./sample-component";
-import { ISampleComponentProps } from "./types";
+import type { ISampleComponentProps } from "./types";
 
 const meta: Meta<typeof SampleComponent> = {
   title: "SampleComponent",
