@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './badge.stories';
+
+<Meta of={Stories} />
+
+# Badge
+
+It displays a badge element. Used in floating action buttons and tab labels.
+
+#### Notes
+
+1. The `label` property is used together with the `value` as an `aria-label`. It is never displayed.
+1. Values bigger than 99 get truncated. The aria label still contains the original value.
+1. Nullish values (`0`, `undefined`, `null`) should not render
+   anything
+
+#### Accessibility
+
+1. The component has a `role` of `status` and an `aria-label` that contains the value with a mandatory label as prefix.
