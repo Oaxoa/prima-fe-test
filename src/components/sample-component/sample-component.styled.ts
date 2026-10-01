@@ -1,7 +1,8 @@
-import styled, { css, RuleSet } from "styled-components";
+import type { RuleSet } from "styled-components";
+import styled, { css } from "styled-components";
 
-import { TSpacingKey } from "../../tokens/spacing";
-import { TSampleComponentVariant } from "./types";
+import type { TSpacingKey } from "../../tokens/spacing";
+import type { TSampleComponentVariant } from "./types";
 
 const variants: Record<TSampleComponentVariant, RuleSet> = {
   primary: css`
