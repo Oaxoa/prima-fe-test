@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 const baseArgs = { text: "Click me" };
-const badgeArgs = { badgeLabel: "Badge", badgeVariant: "negative" };
+const badgeArgs = { badgeLabel: "Badge", badgeVariant: "negative" } satisfies Story["args"];
 
 export const Pill: Story = {
   args: {
