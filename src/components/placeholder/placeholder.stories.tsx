@@ -26,6 +26,7 @@ const GridWrapper = styled.div`
 const TemplateList = () => (
   <ListWrapper>
     {Array.from({ length: 6 }, (_, i) => (
+      // biome-ignore lint/suspicious/noArrayIndexKey: Sample content for Storybook story
       <Placeholder key={i} height="107px" />
     ))}
   </ListWrapper>
@@ -34,6 +35,7 @@ const TemplateList = () => (
 const TemplateGrid = () => (
   <GridWrapper>
     {Array.from({ length: 6 }, (_, i) => (
+      // biome-ignore lint/suspicious/noArrayIndexKey: Sample content for Storybook story
       <Placeholder key={i} aspectRatio="1" />
     ))}
   </GridWrapper>
