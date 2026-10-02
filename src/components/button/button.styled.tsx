@@ -128,15 +128,20 @@ export const Wrapper = styled.button<{
     border-color: var(--border-active);
   }
 
-  &:focus {
-    outline: none;
-  }
+  // focus ring: always present but transparent, so color/offset can transition
+  outline: 2px solid transparent;
+  outline-offset: 0;
+  transition:
+    outline-color ${({ theme }) => theme.easing.default},
+    outline-offset ${({ theme }) => theme.easing.default};
 
   &:focus-visible {
-    outline-width: 2px;
-    outline-style: solid;
-    outline-offset: 2px;
     outline-color: ${({ theme }) => theme.color.inverse.default};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 
   ${StyledBadge} {
