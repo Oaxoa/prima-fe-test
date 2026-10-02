@@ -19,10 +19,25 @@ export const Pill: Story = {
   },
 };
 
+export const PillSelected: Story = {
+  args: {
+    ...baseArgs,
+    selected: true,
+  },
+};
+
 export const Underline: Story = {
   args: {
     ...baseArgs,
     variant: "underline",
+  },
+};
+
+export const UnderlineSelected: Story = {
+  args: {
+    ...baseArgs,
+    variant: "underline",
+    selected: true,
   },
 };
 

@@ -2,12 +2,11 @@ import styled, { css, type RuleSet } from "styled-components";
 
 import { Badge } from "../badge";
 
-import type { TButtonVariant } from "./types";
+import type { TButtonSelection, TButtonVariant } from "./types";
 
-const cssCustomPropsBase = css``;
-
-const cssCustomPropsVariant: Record<TButtonVariant, RuleSet<object>> = {
-  pill: css`
+const cssCustomPropsColors: Record<TButtonVariant, Record<TButtonSelection, RuleSet<object>>> = {
+  pill: {
+    unselected: css`
     --bg-neutral: ${({ theme }) => theme.color.surface.default};
     --bg-hover: ${({ theme }) => theme.color.surface.hover};
     --bg-active: ${({ theme }) => theme.color.surface.active};
@@ -17,22 +16,50 @@ const cssCustomPropsVariant: Record<TButtonVariant, RuleSet<object>> = {
     --border-neutral: ${({ theme }) => theme.color.outline.default};
     --border-hover: ${({ theme }) => theme.color.outline.hover};
     --border-active: ${({ theme }) => theme.color.outline.default};
+      `,
+    selected: css`
+    --bg-neutral: ${({ theme }) => theme.color.inverse.default};
+    --bg-hover: ${({ theme }) => theme.color.inverse.hover};
+    --bg-active: ${({ theme }) => theme.color.inverse.active};
+    --text-neutral: ${({ theme }) => theme.color.on.inverse};
+    --text-hover: ${({ theme }) => theme.color.on.inverse};
+    --text-active: ${({ theme }) => theme.color.on.inverse};
+    --border-neutral: ${({ theme }) => theme.color.surface.default};
+    --border-hover: ${({ theme }) => theme.color.surface.hover};
+    --border-active: ${({ theme }) => theme.color.surface.default};
   `,
-  underline: css`
+  },
+  underline: {
+    unselected: css`
     --bg-neutral: ${({ theme }) => theme.color.surface.default};
     --bg-hover: ${({ theme }) => theme.color.surface.default};
     --bg-active: ${({ theme }) => theme.color.surface.default};
     --text-neutral: ${({ theme }) => theme.color.on.neutral};
     --text-hover: ${({ theme }) => theme.color.on.neutral};
     --text-active: ${({ theme }) => theme.color.on.neutral};
-    --border-neutral: ${({ theme }) => theme.color.outline.default};
+    --border-neutral: ${({ theme }) => theme.color.surface.default};
     --border-hover: ${({ theme }) => theme.color.outline.hover};
-    --border-active: ${({ theme }) => theme.color.outline.default};
+    --border-active: ${({ theme }) => theme.color.outline.hover};`,
+    selected: css`
+    --bg-neutral: ${({ theme }) => theme.color.surface.default};
+    --bg-hover: ${({ theme }) => theme.color.surface.default};
+    --bg-active: ${({ theme }) => theme.color.surface.default};
+    --text-neutral: ${({ theme }) => theme.color.on.neutral};
+    --text-hover: ${({ theme }) => theme.color.on.neutral};
+    --text-active: ${({ theme }) => theme.color.on.neutral};
+    --border-neutral: ${({ theme }) => theme.color.inverse.default};
+    --border-hover: ${({ theme }) => theme.color.inverse.default};
+    --border-active: ${({ theme }) => theme.color.inverse.default};
   `,
+  },
 };
 
+export const Content = styled.div`
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+`;
 export const Underline = styled.div`
-  background-color: ${({ theme }) => theme.color.inverse.default};
   position: absolute;
   inset-block-end: 0;
   inset-inline-start: 0;
@@ -44,7 +71,7 @@ export const Underline = styled.div`
 const variants: Record<TButtonVariant, RuleSet<object>> = {
   pill: css`
     border-radius: 2rem;
-    border-width: 0.125rem;
+    border-width: ${({ $selected }) => ($selected ? 0 : "0.125rem")};
     border-style: solid;
     padding: 0 ${({ theme }) => theme.spacing.xs};
   `,
@@ -54,12 +81,12 @@ const variants: Record<TButtonVariant, RuleSet<object>> = {
     border-radius: ${({ theme }) => theme.spacing.xs4};
 
     ${Underline} {
-      background-color: ${({ theme }) => theme.color.surface.default};
+      background-color: var(--border-neutral);
     }
     
     &:hover {
       ${Underline} {
-        background-color: ${({ theme }) => theme.color.outline.hover};
+        background-color: var(--border-hover);
       }
     }
   `,
@@ -69,25 +96,25 @@ export const StyledBadge = styled(Badge)``;
 
 export const Wrapper = styled.button<{
   $variant: TButtonVariant;
+  $selected: boolean;
 }>`
   user-select: none;
   box-sizing: border-box;
-  
   display: inline-flex;
   justify-content: center;
   align-items: center;
   position: relative;
   cursor: pointer;
-
-  ${cssCustomPropsBase};
+  font-weight: bold;
 
   // variant based state colors
-  ${({ $variant }) => cssCustomPropsVariant[$variant]};
+  ${({ $variant, $selected }) => cssCustomPropsColors[$variant][$selected ? "selected" : "unselected"]};
 
+  // application of css custom props
   background-color: var(--bg-neutral);
   color: var(--text-neutral);
   border-color: var(--border-neutral);
-  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
+  width: auto;
 
   &:hover {
     background-color: var(--bg-hover);
@@ -99,12 +126,6 @@ export const Wrapper = styled.button<{
     background-color: var(--bg-active);
     color: var(--text-active);
     border-color: var(--border-active);
-  }
-
-  &:disabled {
-    background-color: var(--bg-disabled);
-    color: var(--text-disabled);
-    border-color: var(--border-disabled);
   }
 
   &:focus {
@@ -133,9 +154,6 @@ export const Wrapper = styled.button<{
 
   // visual style variants
   ${({ $variant }) => variants[$variant]};
-
-  
 `;
 
-export const Text = styled.span`
-`;
+export const Text = styled.span``;
