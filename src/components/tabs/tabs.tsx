@@ -48,6 +48,8 @@ export const Tabs = ({
 };
 
 const List = ({ children, ...rest }: React.ComponentProps<"div">) => {
+  const { variant } = useTabs();
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const tabs = Array.from(
       e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)'),
@@ -77,7 +79,7 @@ const List = ({ children, ...rest }: React.ComponentProps<"div">) => {
   };
 
   return (
-    <StyledList role="tablist" onKeyDown={onKeyDown} {...rest}>
+    <StyledList role="tablist" $variant={variant} onKeyDown={onKeyDown} {...rest}>
       {children}
     </StyledList>
   );

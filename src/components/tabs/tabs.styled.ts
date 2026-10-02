@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import type { TButtonVariant } from "../button/types.ts";
 
 export const Wrapper = styled.div`
 	display: flex;
@@ -6,7 +7,7 @@ export const Wrapper = styled.div`
 	gap: ${({ theme }) => theme.spacing.m};
 `;
 
-export const StyledList = styled.div`
+export const StyledList = styled.div<{ $variant: TButtonVariant }>`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.xs2};
+  gap: ${({ theme, $variant }) => ($variant === "underline" ? theme.spacing.l : theme.spacing.xs2)};
 `;
