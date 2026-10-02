@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import styled from "styled-components";
 import { Placeholder } from "../placeholder/placeholder.tsx";
 import { Tabs } from "./tabs.tsx";
+import type { ITabsProps } from "./types.ts";
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs",
@@ -81,12 +82,16 @@ const panels = {
   ),
 };
 
-const Template = () => (
-  <Tabs defaultValue="one">
+const Template = (args: ITabsProps) => (
+  <Tabs {...args} defaultValue="one">
     <Tabs.List aria-label="Account sections">
-      <Tabs.Tab value="emails">Emails</Tabs.Tab>
+      <Tabs.Tab value="emails" badgeLabel="3">
+        Emails
+      </Tabs.Tab>
       <Tabs.Tab value="files">Files</Tabs.Tab>
-      <Tabs.Tab value="edits">Edits</Tabs.Tab>
+      <Tabs.Tab value="edits" badgeLabel="New" badgeVariant="positive">
+        Edits
+      </Tabs.Tab>
       <Tabs.Tab value="downloads">Downloads</Tabs.Tab>
       <Tabs.Tab value="documents">Documents</Tabs.Tab>
     </Tabs.List>
@@ -99,5 +104,11 @@ const Template = () => (
 );
 
 export const Pill: Story = {
+  args: { variant: "pill" },
+  render: Template,
+};
+
+export const Underline: Story = {
+  args: { variant: "underline" },
   render: Template,
 };
