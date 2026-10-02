@@ -30,4 +30,28 @@ export const GlobalStyle = createGlobalStyle`
 		font-family: inherit;
 		font-size: 100%;
 	}
+
+	/* Tabs panel swap, driven by React <ViewTransition> (see components/tabs):
+	   old content drops down, then new content rises up. */
+	::view-transition-old(.tab-exit) {
+		animation: 150ms ease-in both tab-out-down;
+	}
+	::view-transition-new(.tab-enter) {
+		animation: 150ms ease-out 150ms both tab-in-up;
+	}
+
+	@keyframes tab-out-down {
+		to { opacity: 0; transform: translateY(16px); }
+	}
+	@keyframes tab-in-up {
+		from { opacity: 0; transform: translateY(16px); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		::view-transition-group(*),
+		::view-transition-old(*),
+		::view-transition-new(*) {
+			animation: none !important;
+		}
+	}
 `;

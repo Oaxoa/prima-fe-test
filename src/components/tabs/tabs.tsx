@@ -1,4 +1,12 @@
-import { createContext, useContext, useId, useState } from "react";
+import {
+  addTransitionType,
+  createContext,
+  startTransition,
+  useContext,
+  useId,
+  useState,
+  ViewTransition,
+} from "react";
 import { Button } from "../button";
 import { StyledList, Wrapper } from "./tabs.styled.ts";
 import type { ITabProps, TabsContextValue } from "./types.ts";
@@ -25,8 +33,12 @@ export const Tabs = ({ defaultValue = "", value, onChange, children }: TTabsProp
   const current = isControlled ? value : internal;
 
   const select = (next: string) => {
-    if (!isControlled) setInternal(next);
-    onChange?.(next);
+    if (next === current) return;
+    startTransition(() => {
+      addTransitionType("tab-select");
+      if (!isControlled) setInternal(next);
+      onChange?.(next);
+    });
   };
 
   return (
@@ -101,9 +113,18 @@ const Panel = ({ value, children }: TPanelProps) => {
   if (current !== value) return null;
 
   return (
-    <div role="tabpanel" id={`${baseId}-panel-${value}`} aria-labelledby={`${baseId}-tab-${value}`}>
-      {children}
-    </div>
+    <ViewTransition
+      enter={{ "tab-select": "tab-enter", default: "none" }}
+      exit={{ "tab-select": "tab-exit", default: "none" }}
+    >
+      <div
+        role="tabpanel"
+        id={`${baseId}-panel-${value}`}
+        aria-labelledby={`${baseId}-tab-${value}`}
+      >
+        {children}
+      </div>
+    </ViewTransition>
   );
 };
 
