@@ -12,10 +12,18 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 const baseArgs = { text: "Click me" };
+const badgeArgs = { badgeLabel: "Badge", badgeVariant: "negative" };
 
 export const Pill: Story = {
   args: {
     ...baseArgs,
+  },
+};
+
+export const PillBadge: Story = {
+  args: {
+    ...baseArgs,
+    ...badgeArgs,
   },
 };
 
@@ -26,10 +34,26 @@ export const PillSelected: Story = {
   },
 };
 
+export const PillBadgeSelected: Story = {
+  args: {
+    ...baseArgs,
+    selected: true,
+    ...badgeArgs,
+  },
+};
+
 export const Underline: Story = {
   args: {
     ...baseArgs,
     variant: "underline",
+  },
+};
+
+export const UnderlineBadge: Story = {
+  args: {
+    ...baseArgs,
+    variant: "underline",
+    ...badgeArgs,
   },
 };
 
@@ -38,6 +62,15 @@ export const UnderlineSelected: Story = {
     ...baseArgs,
     variant: "underline",
     selected: true,
+  },
+};
+
+export const UnderlineBadgeSelected: Story = {
+  args: {
+    ...baseArgs,
+    variant: "underline",
+    selected: true,
+    ...badgeArgs,
   },
 };
 
