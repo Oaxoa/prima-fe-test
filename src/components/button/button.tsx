@@ -15,6 +15,7 @@ export const Button: React.FC<IButtonProps & React.ComponentPropsWithoutRef<"but
 }) => {
   return (
     <Wrapper
+      type="button"
       className={className}
       $variant={variant}
       $selected={selected}
