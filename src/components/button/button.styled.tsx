@@ -132,6 +132,7 @@ export const Wrapper = styled.button<{
   outline: 2px solid transparent;
   outline-offset: 0;
   transition:
+    background ${({ theme }) => theme.easing.slow},
     outline-color ${({ theme }) => theme.easing.default},
     outline-offset ${({ theme }) => theme.easing.default};
 
