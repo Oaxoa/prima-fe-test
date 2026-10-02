@@ -16,6 +16,7 @@ export const color = {
     negative: "#FFBFB1",
     hover: "#F6F6FA",
     active: "#F1F1F7",
+    placeholder: "#CCCCCC",
   },
   outline: {
     default: "#D3D3DC",
