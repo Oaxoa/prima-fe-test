@@ -56,7 +56,7 @@ const cssCustomPropsColors: Record<TButtonVariant, Record<TButtonSelection, Rule
 
 export const Content = styled.div`
   display: inline-flex;
-  gap: 12px;
+  gap: ${({ theme }) => theme.spacing.xs2};
   align-items: center;
 `;
 export const Underline = styled.div`
@@ -143,12 +143,6 @@ export const Wrapper = styled.button<{
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-  }
-
-  ${StyledBadge} {
-    position: absolute;
-    inset-block-start: -0.875rem;
-    inset-inline-end: 0;
   }
 
   // responsive height
