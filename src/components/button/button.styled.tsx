@@ -67,13 +67,18 @@ export const Underline = styled.div`
   transition: background-color ${({ theme }) => theme.easing.default}, width 150ms cubic-bezier(0.32, 0, 0.67, 0) ;
 `;
 
-const variants: Record<TButtonVariant, RuleSet<object>> = {
-  pill: css`
+type TWrapperProps = {
+  $variant: TButtonVariant;
+  $selected: boolean;
+};
+
+const variants: Record<TButtonVariant, RuleSet<TWrapperProps>> = {
+  pill: css<TWrapperProps>`
     border-radius: 2rem;
     border-style: solid;
     padding: 0 ${({ theme }) => theme.spacing.xs};
   `,
-  underline: css`
+  underline: css<TWrapperProps>`
     border: none;
     padding: 0;
     border-radius: ${({ theme }) => theme.spacing.xs4};
@@ -96,10 +101,7 @@ const variants: Record<TButtonVariant, RuleSet<object>> = {
 
 export const StyledBadge = styled(Badge)``;
 
-export const Wrapper = styled.button<{
-  $variant: TButtonVariant;
-  $selected: boolean;
-}>`
+export const Wrapper = styled.button<TWrapperProps>`
   user-select: none;
   box-sizing: border-box;
   display: inline-flex;
