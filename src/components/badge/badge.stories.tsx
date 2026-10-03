@@ -37,6 +37,5 @@ export const HtmlAttributes: Story = {
   args: {
     ...baseArgs,
     title: "Some title",
-    "aria-label": "Some aria label",
   },
 };
