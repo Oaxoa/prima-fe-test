@@ -18,7 +18,7 @@ pnpm install
 # And run the project
 pnpm dev
 
-# Optional: Run Storybook
+# Run Storybook
 pnpm storybook
 ```
 
@@ -26,17 +26,31 @@ pnpm storybook
 
 The figma file of the home test is available [here](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/%F0%9F%92%BB-Design-System-Home-Test---Tabs-Component?node-id=0-1&t=4pG7NN6HKxgxroDz-1).
 
-## Notes from the author
+## Notes from the author (Pierluigi Pesenti)
+
+Hi, I have implemented the tabs component as per request.
+All the components are testable in Storybook.
+
+I have followed the same approach I have used in productions many times, based on atomic design principles.
+Every component is either an atom or a composition of other components. 
+I have implemented and documented every piece individually so to maximize reusability.
+
+Accessibility is baked in and tested with several tools, including VoiceOver navigation on a Mac.
+I have added components test using testing libraries to those components that have a logic.
+FOr more complex components I like to extract the logic complexity as much as possible into units and proceed with 
+unit testing (not applicable here).
+
+The task was manually implemented with the help of Clause AI (for fixing some TS issues, improve the documentation 
+and stub tests).
 
 ### For the repository's authors
 
 1. When just cloned the repo does not build because `typescript 7` is incompatible with the listed version of 
 `typescript-eslint`. At the time of writing no version of `typescript-eslint` supports TS7 so I have downgraded it to TS6.
 1. I have used `npm` to install and manage deps so there is the new `npm` lock file (the `pnpm` lock file may now be out 
-   of sync)
+   of sync). I have used as I had it already. In a working environment I would stick to what's in place for the team.
 
 ### For the design team:
-
 
 1. Tokens in the `Figma` file follow a not-so-strict naming convention (e.g.: `OnInverse`). Some values in the `Figma` are 
    hardcoded. 
