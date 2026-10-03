@@ -10,8 +10,8 @@ import {
   ViewTransition,
 } from "react";
 import { Button } from "../button";
-import { StyledList, Wrapper } from "./tabs.styled.ts";
-import type { IPanelProps, ITabProps, ITabsProps, TabsContextValue } from "./types.ts";
+import { StyledList, StyledPanel, Wrapper } from "./tabs.styled.ts";
+import type { IPanelProps, ITabProps, ITabsProps, TabsContextValue, TListProps } from "./types.ts";
 
 const TabsContext = createContext<TabsContextValue | null>(null);
 
@@ -55,7 +55,7 @@ export const Tabs = ({ variant = "pill", defaultValue, value, onChange, children
   );
 };
 
-const List = ({ children, ...rest }: React.ComponentProps<"div">) => {
+const List = ({ children, ...rest }: TListProps) => {
   const { variant } = useTabs();
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -181,13 +181,15 @@ const Panel = ({ value, children }: IPanelProps) => {
       enter={{ "tab-select": "tab-enter", default: "none" }}
       exit={{ "tab-select": "tab-exit", default: "none" }}
     >
-      <div
+      {/* focusable so Tab lands on the panel even when its content has no focusable elements */}
+      <StyledPanel
         role="tabpanel"
+        tabIndex={0}
         id={`${baseId}-panel-${value}`}
         aria-labelledby={`${baseId}-tab-${value}`}
       >
         {children}
-      </div>
+      </StyledPanel>
     </ViewTransition>
   );
 };

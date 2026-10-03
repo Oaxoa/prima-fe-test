@@ -17,6 +17,14 @@ export interface ITabsProps {
   children: React.ReactNode;
 }
 
+/** A tablist must have an accessible name: exactly one of these two. */
+type TListLabel =
+  | { "aria-label": string; "aria-labelledby"?: never }
+  | { "aria-labelledby": string; "aria-label"?: never };
+
+export type TListProps = Omit<React.ComponentProps<"div">, "aria-label" | "aria-labelledby"> &
+  TListLabel;
+
 export interface IPanelProps {
   value: string;
   children: React.ReactNode;
