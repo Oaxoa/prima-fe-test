@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import * as Stories from './placeholder.stories.tsx';
 
@@ -6,4 +6,32 @@ import * as Stories from './placeholder.stories.tsx';
 
 # Placeholder
 
-It displays a placeholder component.
+A grey, rounded block that stands in for real content, for example while it loads or in demos
+like the Tabs stories. It fills the available width.
+
+<Canvas of={Stories.Base} />
+
+## Sizing
+
+- **`height`**: a fixed height, as any CSS length (`"107px"`, `"10rem"`).
+- **`aspectRatio`**: a height that follows the width, as a CSS ratio (`"1"`, `"16 / 9"`). This
+  suits grids, where the width comes from the column.
+- With neither, it keeps a minimum height (`theme.spacing.l`), so it never collapses to nothing.
+
+```tsx
+<Placeholder height="107px" />
+<Placeholder aspectRatio="16 / 9" />
+```
+
+<Canvas of={Stories.List} />
+<Canvas of={Stories.Grid} />
+
+## Props
+
+<Controls />
+
+## Accessibility
+
+It's purely decorative, so it's hidden from assistive technology (`aria-hidden="true"`). When it
+stands in for content that is loading, announce the loading state separately, for example with
+`aria-busy` on the container that will hold the content.

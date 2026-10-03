@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import * as Stories from './badge.stories';
 
@@ -6,4 +6,39 @@ import * as Stories from './badge.stories';
 
 # Badge
 
-It displays a badge element. Used in floating action buttons and tab labels.
+A small label with a coloured background, for short extra information like a count or a status.
+It's used on its own and inside `Button` and `Tabs.Tab`, through their `badge*` props.
+
+<Canvas of={Stories.Neutral} />
+
+```tsx
+<Badge label="3" a11yLabel="3 unread messages" variant="positive" />
+```
+
+## Variants
+
+- **`neutral`** (default): general information.
+- **`positive`**: good news, like "New" or "Done".
+- **`negative`**: problems or things that need attention.
+
+<Canvas of={Stories.Positive} />
+<Canvas of={Stories.Negative} />
+
+Don't rely on the colour alone to carry meaning: the label should make sense on its own, or be
+backed by an `a11yLabel`.
+
+## Props
+
+<Controls />
+
+Any other `span` attribute is passed through.
+
+## Accessibility
+
+- **Screen reader text.** By default the badge is read as its `label`. If the label has no
+  meaning out of context (like a number), set `a11yLabel`: screen readers read it instead, and
+  the visible label is hidden from them.
+- **Not a live region.** Changes to the badge aren't announced by default. For a value that
+  changes while the user is on the page and should be announced, pass `role="status"`.
+- **No `aria-label`.** The badge renders a plain `span`, where ARIA doesn't allow `aria-label`.
+  Use `a11yLabel` instead.

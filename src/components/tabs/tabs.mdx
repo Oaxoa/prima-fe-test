@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import * as Stories from './tabs.stories.tsx';
 
@@ -6,7 +6,128 @@ import * as Stories from './tabs.stories.tsx';
 
 # Tabs
 
-1. It displays a tabs component.
-1. It has two variants
-1. It allows for uncontrolled or controlled behaviour.
-1. It features animations using transitions and state transitions
+Tabs split related content into sections and show one section at a time. Selecting a tab
+swaps the panel below it.
+
+<Canvas of={Stories.Pill} />
+
+## Anatomy
+
+`Tabs` is a compound component. Its parts share state through React context, so they can be
+placed freely inside it:
+
+- **`Tabs`**: the root. It holds the selected value and the visual variant.
+- **`Tabs.List`**: the row of tabs (`role="tablist"`). It handles keyboard navigation.
+- **`Tabs.Tab`**: one tab (`role="tab"`), rendered with the design system `Button`.
+- **`Tabs.Panel`**: the content of one tab (`role="tabpanel"`). Only the selected panel is rendered.
+
+Tabs and panels are matched by their `value`.
+
+```tsx
+<Tabs>
+  <Tabs.List aria-label="Account sections">
+    <Tabs.Tab value="emails" badgeLabel="3" badgeA11yLabel="3 unread">Emails</Tabs.Tab>
+    <Tabs.Tab value="files">Files</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="emails">…</Tabs.Panel>
+  <Tabs.Panel value="files">…</Tabs.Panel>
+</Tabs>
+```
+
+## Variants
+
+The `variant` is set once on `Tabs` and applies to every tab, so one set of tabs can't mix
+styles. It uses the `Button` variants:
+
+- **`pill`** (default): rounded buttons; the selected one is filled.
+- **`underline`**: text tabs; the selected one is underlined. The tabs are spaced further apart.
+
+<Canvas of={Stories.Underline} />
+
+## Badges
+
+A tab can show a `Badge` through its own props, the same API as `Button`:
+
+- `badgeLabel`: the text shown in the badge. No label, no badge.
+- `badgeVariant`: `neutral` (default), `positive` or `negative`.
+- `badgeA11yLabel`: optional text read by screen readers instead of the visible label. Use it
+  when the label alone has no meaning: a tab with `badgeLabel="3"` and
+  `badgeA11yLabel="3 unread"` is read as "Emails 3 unread".
+
+## Selection: uncontrolled and controlled
+
+**Uncontrolled.** `Tabs` keeps the selection itself. `defaultValue` picks the tab that starts
+selected. Without it, the first tab is selected, so a tab is always selected and the tab list
+is always reachable by keyboard.
+
+<Canvas of={Stories.DefaultValue} />
+
+**Controlled.** Pass `value` and `onChange`, and keep the value in your own state. Clicking a tab
+calls `onChange` with that tab's value, but the selection only changes when you update `value`.
+In controlled mode, `value` must match one of the tabs.
+
+```tsx
+const [tab, setTab] = useState("emails");
+
+<Tabs value={tab} onChange={setTab}>…</Tabs>
+```
+
+<Canvas of={Stories.Controlled} />
+
+## Props
+
+### Tabs
+
+<Controls />
+
+### Tabs.List
+
+- `aria-label` or `aria-labelledby` (**required**, exactly one): the accessible name of the tab
+  list. It's enforced by the types.
+- Any other `div` attribute is passed through.
+
+### Tabs.Tab
+
+- `value` (**required**): links the tab to the panel with the same `value`.
+- `children` (**required**, string): the tab label.
+- `badgeLabel`, `badgeVariant`, `badgeA11yLabel`: see [Badges](#badges).
+- `className`: for styling from outside.
+
+### Tabs.Panel
+
+- `value` (**required**): the tab this panel belongs to.
+- `children`: the panel content.
+
+## Animation
+
+When the user selects a tab, the old panel drops down and fades out, then the new one rises up
+and fades in. This uses the browser's View Transitions API, through React's `<ViewTransition>`.
+
+- Only user selections animate. The first render and `value` changes made by a parent don't.
+- In browsers without View Transitions, the panels swap instantly.
+- With `prefers-reduced-motion: reduce`, nothing animates.
+
+## Accessibility
+
+Follows the [WAI-ARIA tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/):
+
+- **Roles and states.** `tablist`, `tab` and `tabpanel` roles. `aria-selected` marks the selected
+  tab. Each tab points to its panel (`aria-controls`), and each panel is named after its tab
+  (`aria-labelledby`).
+- **Keyboard.**
+  - `Tab` moves focus to the selected tab, then into the panel.
+  - `←` / `→` move focus between tabs, wrapping at the ends. `Home` / `End` jump to the first or
+    last tab.
+  - `Enter` / `Space` select the focused tab. Moving focus alone doesn't select it (manual
+    activation), so users can look along the tabs without loading each panel.
+- **Roving tabindex.** Only the selected tab is in the Tab order, so the list is a single stop.
+- **Focusable panel.** The panel can take focus (`tabIndex={0}`), so keyboard users reach it even
+  when its content has nothing focusable.
+- **Focus ring.** Shown only on keyboard focus (`:focus-visible`).
+
+## Known limitations
+
+- Tab `value`s are used in element ids, so they must not contain spaces.
+- Arrow keys aren't flipped for right-to-left layouts.
+- Inactive panels aren't rendered, so their state (e.g. a half-filled form) is lost when switching
+  tabs.
