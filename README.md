@@ -19,10 +19,9 @@ and stub tests).
 
 ### For the repository's authors
 
-1. When just cloned the repo does not build because `typescript 7` is incompatible with the listed version of
+1. When just cloned, the repo does not build because `typescript 7` is incompatible with the listed version of
    `typescript-eslint`. At the time of writing no version of `typescript-eslint` supports TS7 so I have downgraded it to TS6.
-1. I have used `npm` to install and manage deps so there is the new `npm` lock file (the `pnpm` lock file may now be out
-   of sync). I have used as I had it already. In a working environment I would stick to what's in place for the team.
+1. There is a mismatch between `react` and `react-dom` version that causes troubles in `Storybook` (fixed)
 
 ### For the design team:
 
