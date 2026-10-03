@@ -10,6 +10,7 @@ const variantsMap: Record<TBadgeVariant, TSurfaceKey> = {
 };
 
 export const Wrapper = styled.div<{ $variant: TBadgeVariant }>`
+	width: fit-content;
   border-radius: 12px;
   font-weight: bold;
 	font-size: ${({ theme }) => theme.typography.size.body.s};
