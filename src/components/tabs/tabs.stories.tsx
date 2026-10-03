@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Placeholder } from "../placeholder/placeholder.tsx";
 import { Tabs } from "./tabs.tsx";
@@ -83,7 +84,7 @@ const panels = {
 };
 
 const Template = (args: ITabsProps) => (
-  <Tabs {...args} defaultValue="one">
+  <Tabs {...args}>
     <Tabs.List aria-label="Account sections">
       <Tabs.Tab value="emails" badgeLabel="3">
         Emails
@@ -103,6 +104,26 @@ const Template = (args: ITabsProps) => (
   </Tabs>
 );
 
+const TemplateControlled = () => {
+  const [selected, setSelected] = useState("one");
+  const handleChange = (value: string) => {
+    alert("Selected tab: " + value);
+    setSelected(value);
+  };
+  return (
+    <Tabs value={selected} onChange={handleChange}>
+      <Tabs.List aria-label="Account sections">
+        <Tabs.Tab value="one">Emails</Tabs.Tab>
+        <Tabs.Tab value="two">Files</Tabs.Tab>
+        <Tabs.Tab value="three">Edits</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="one">One</Tabs.Panel>
+      <Tabs.Panel value="two">Two</Tabs.Panel>
+      <Tabs.Panel value="three">Three</Tabs.Panel>
+    </Tabs>
+  );
+};
+
 export const Pill: Story = {
   args: { variant: "pill" },
   render: Template,
@@ -111,4 +132,13 @@ export const Pill: Story = {
 export const Underline: Story = {
   args: { variant: "underline" },
   render: Template,
+};
+
+export const DefaultValue: Story = {
+  args: { variant: "underline", defaultValue: "documents" },
+  render: Template,
+};
+
+export const Controlled: Story = {
+  render: TemplateControlled,
 };

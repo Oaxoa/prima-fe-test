@@ -4,6 +4,8 @@ import {
   startTransition,
   useContext,
   useId,
+  useLayoutEffect,
+  useRef,
   useState,
   ViewTransition,
 } from "react";
@@ -19,17 +21,23 @@ const useTabs = () => {
   return ctx;
 };
 
-export const Tabs = ({
-  variant = "pill",
-  defaultValue = "",
-  value,
-  onChange,
-  children,
-}: ITabsProps) => {
+export const Tabs = ({ variant = "pill", defaultValue, value, onChange, children }: ITabsProps) => {
   const baseId = useId();
-  const [internal, setInternal] = useState(defaultValue);
+  const [internal, setInternal] = useState(defaultValue ?? "");
   const isControlled = value !== undefined;
   const current = isControlled ? value : internal;
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // Without a defaultValue no tab would be selected, and with the roving tabindex
+  // every tab would be tabIndex -1, unreachable by keyboard. Select the first tab
+  // instead, before the first paint.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: runs once, on mount
+  useLayoutEffect(() => {
+    if (isControlled || defaultValue !== undefined) return;
+    const firstTab = wrapperRef.current?.querySelector<HTMLElement>('[role="tab"]');
+    if (firstTab?.dataset.value) setInternal(firstTab.dataset.value);
+  }, []);
 
   const select = (next: string) => {
     if (next === current) return;
@@ -42,7 +50,7 @@ export const Tabs = ({
 
   return (
     <TabsContext.Provider value={{ value: current, select, baseId, variant }}>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper ref={wrapperRef}>{children}</Wrapper>
     </TabsContext.Provider>
   );
 };
@@ -146,6 +154,7 @@ const Tab = ({ value, children, className, badgeLabel, badgeVariant }: ITabProps
       badgeVariant={badgeVariant}
       selected={selected}
       role="tab"
+      data-value={value}
       id={`${baseId}-tab-${value}`}
       aria-selected={selected}
       aria-controls={`${baseId}-panel-${value}`}
