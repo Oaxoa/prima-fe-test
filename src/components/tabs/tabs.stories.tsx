@@ -107,7 +107,7 @@ const Template = (args: ITabsProps) => (
 const TemplateControlled = () => {
   const [selected, setSelected] = useState("one");
   const handleChange = (value: string) => {
-    alert("Selected tab: " + value);
+    alert(`Selected tab: ${value}`);
     setSelected(value);
   };
   return (
