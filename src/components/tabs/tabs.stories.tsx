@@ -86,7 +86,7 @@ const panels = {
 const Template = (args: ITabsProps) => (
   <Tabs {...args}>
     <Tabs.List aria-label="Account sections">
-      <Tabs.Tab value="emails" badgeLabel="3">
+      <Tabs.Tab value="emails" badgeLabel="3" badgeA11yLabel="3 unread">
         Emails
       </Tabs.Tab>
       <Tabs.Tab value="files">Files</Tabs.Tab>
