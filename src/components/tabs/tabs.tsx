@@ -141,7 +141,14 @@ const List = ({ children, ...rest }: React.ComponentProps<"div">) => {
  *      label + badge, and anyone could put any node in the corner.
  *    - Worth revisiting only if badges need custom content.
  */
-const Tab = ({ value, children, className, badgeLabel, badgeVariant }: ITabProps) => {
+const Tab = ({
+  value,
+  children,
+  className,
+  badgeLabel,
+  badgeVariant,
+  badgeA11yLabel,
+}: ITabProps) => {
   const { value: current, select, baseId, variant } = useTabs();
   const selected = current === value;
 
@@ -152,6 +159,7 @@ const Tab = ({ value, children, className, badgeLabel, badgeVariant }: ITabProps
       text={children}
       badgeLabel={badgeLabel}
       badgeVariant={badgeVariant}
+      badgeA11yLabel={badgeA11yLabel}
       selected={selected}
       role="tab"
       data-value={value}

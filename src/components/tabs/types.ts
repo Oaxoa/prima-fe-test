@@ -1,7 +1,9 @@
 import type { IButtonProps, TButtonVariant } from "../button/types.ts";
 import type { IStyleable } from "../types.ts";
 
-export interface ITabProps extends IStyleable, Pick<IButtonProps, "badgeLabel" | "badgeVariant"> {
+export interface ITabProps
+  extends IStyleable,
+    Pick<IButtonProps, "badgeLabel" | "badgeVariant" | "badgeA11yLabel"> {
   value: string;
   children: string;
 }
