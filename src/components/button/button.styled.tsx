@@ -66,6 +66,10 @@ export const Underline = styled.span`
   height: 3px;
   border-radius: 100px; // TODO weird value (from the design system). Check with the design team
   transition: background-color ${({ theme }) => theme.easing.default}, width 150ms cubic-bezier(0.32, 0, 0.67, 0) ;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;
 
 type TWrapperProps = {
