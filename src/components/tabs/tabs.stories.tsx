@@ -112,10 +112,10 @@ const TemplateControlled = () => {
   };
   return (
     <Tabs value={selected} onChange={handleChange}>
-      <Tabs.List aria-label="Account sections">
-        <Tabs.Tab value="one">Emails</Tabs.Tab>
-        <Tabs.Tab value="two">Files</Tabs.Tab>
-        <Tabs.Tab value="three">Edits</Tabs.Tab>
+      <Tabs.List aria-label="Example sections">
+        <Tabs.Tab value="one">One</Tabs.Tab>
+        <Tabs.Tab value="two">Two</Tabs.Tab>
+        <Tabs.Tab value="three">Three</Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="one">One</Tabs.Panel>
       <Tabs.Panel value="two">Two</Tabs.Panel>
