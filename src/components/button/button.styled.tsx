@@ -54,13 +54,14 @@ const cssCustomPropsColors: Record<TButtonVariant, Record<TButtonSelection, Rule
   },
 };
 
-export const Content = styled.div`
+export const Content = styled.span`
   display: inline-flex;
   gap: ${({ theme }) => theme.spacing.xs2};
   align-items: center;
   height: calc(100% - 3px);
 `;
-export const Underline = styled.div`
+export const Underline = styled.span`
+  display: block;
   width: 100%;
   height: 3px;
   border-radius: 100px; // TODO weird value (from the design system). Check with the design team
