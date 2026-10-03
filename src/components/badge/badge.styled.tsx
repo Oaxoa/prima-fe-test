@@ -9,7 +9,8 @@ const variantsMap: Record<TBadgeVariant, TSurfaceKey> = {
   negative: "negative",
 };
 
-export const Wrapper = styled.div<{ $variant: TBadgeVariant }>`
+export const Wrapper = styled.span<{ $variant: TBadgeVariant }>`
+	display: inline-block;
 	width: fit-content;
   border-radius: 12px;
   font-weight: bold;
@@ -22,4 +23,17 @@ export const Wrapper = styled.div<{ $variant: TBadgeVariant }>`
 	${({ theme }) => theme.desktop} {
 		padding: ${({ theme }) => theme.spacing.xs3} ${({ theme }) => theme.spacing.xs2};
 	}
+`;
+
+/** Hidden visually, still read by screen readers. */
+export const VisuallyHidden = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 `;

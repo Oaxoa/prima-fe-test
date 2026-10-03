@@ -4,4 +4,9 @@ export type TBadgeVariant = "neutral" | "positive" | "negative";
 export interface IBadgeProps extends IStyleable {
   variant?: TBadgeVariant;
   label: string;
+  /**
+   * Text read by screen readers instead of `label`, to give it context
+   * (e.g. label "3", a11yLabel "3 unread messages").
+   */
+  a11yLabel?: string;
 }
