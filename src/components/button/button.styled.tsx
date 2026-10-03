@@ -25,7 +25,7 @@ const cssCustomPropsColors: Record<TButtonVariant, Record<TButtonSelection, Rule
     --text-hover: ${({ theme }) => theme.color.on.inverse};
     --text-active: ${({ theme }) => theme.color.on.inverse};
     --border-neutral: ${({ theme }) => theme.color.surface.default};
-    --border-hover: ${({ theme }) => theme.color.surface.hover};
+    --border-hover: ${({ theme }) => theme.color.surface.default};
     --border-active: ${({ theme }) => theme.color.surface.default};
   `,
   },
@@ -58,20 +58,18 @@ export const Content = styled.div`
   display: inline-flex;
   gap: ${({ theme }) => theme.spacing.xs2};
   align-items: center;
+  height: calc(100% - 3px);
 `;
 export const Underline = styled.div`
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline-start: 0;
   width: 100%;
   height: 3px;
   border-radius: 100px; // TODO weird value (from the design system). Check with the design team
+  transition: background-color ${({ theme }) => theme.easing.default}, width 150ms cubic-bezier(0.32, 0, 0.67, 0) ;
 `;
 
 const variants: Record<TButtonVariant, RuleSet<object>> = {
   pill: css`
     border-radius: 2rem;
-    border-width: ${({ $selected }) => ($selected ? 0 : "0.125rem")};
     border-style: solid;
     padding: 0 ${({ theme }) => theme.spacing.xs};
   `,
@@ -80,13 +78,17 @@ const variants: Record<TButtonVariant, RuleSet<object>> = {
     padding: 0;
     border-radius: ${({ theme }) => theme.spacing.xs4};
 
+    
+
     ${Underline} {
       background-color: var(--border-neutral);
+      width: ${({ $selected }) => ($selected ? "100%" : 0)};
     }
     
     &:hover {
       ${Underline} {
         background-color: var(--border-hover);
+        width: 100%;
       }
     }
   `,
@@ -103,6 +105,7 @@ export const Wrapper = styled.button<{
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   position: relative;
   cursor: pointer;
   font-weight: bold;
