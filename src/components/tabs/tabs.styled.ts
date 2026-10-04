@@ -10,6 +10,10 @@ export const Wrapper = styled.div`
 export const StyledList = styled.div<{ $variant: TButtonVariant }>`
   display: flex;
   gap: ${({ theme, $variant }) => ($variant === "underline" ? theme.spacing.l : theme.spacing.xs2)};
+
+	${({ theme }) => theme.desktop} {
+		gap: ${({ theme, $variant }) => ($variant === "underline" ? theme.spacing.xl : theme.spacing.xs)};
+	}
 `;
 
 export const StyledPanel = styled.div`
