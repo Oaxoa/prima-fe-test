@@ -11,7 +11,7 @@ I have implemented and documented every piece individually so to maximize reusab
 
 Accessibility is baked in and tested with several tools, including `Voice Over` navigation on a Mac.
 I have added components test using `testing-library` to those components that have a logic.
-FOr more complex components I like to extract the logic complexity as much as possible into units and proceed with
+For more complex components I like to extract the logic complexity as much as possible into units and proceed with
 unit testing (not applicable here).
 
 The task was manually implemented with the help of `Claude` AI (for fixing some TS issues, improve the documentation
